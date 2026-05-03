@@ -1,0 +1,14 @@
+name: accessibility-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - pillow
+      - opencv-python
+      - mss
+      - pyautogui
+      - numpy
+      - pyqt5
+      - pyobjc
