@@ -82,49 +82,49 @@ Free text. Use for anything unusual, multi-step complexity, or reasons for a dif
 # Action Reference
 
 ## Navigation
-- `[zoom] and [pan]`
-- `[zoom]`
-- `[zoom] in on [design object]`
+- `[zoom] and [pan]` - VERY HARD
+- `[zoom]` - HARD
+- `[zoom] in on [design object]` - VERY HARD
 
 ## Selection
-- `[select] [design object] on [canvas] using [cursor]`
-- `[deep select] [design object] on [canvas] using [cursor]`
-- `[deep select] [text object] on [canvas] using [cursor]`
-- `[multiselect] [design objects] on [canvas] using [cursor]`
-- `[deselect]`
+- `[select] [design object] on [canvas] using [cursor]` - HARD
+- `[deep select] [design object] on [canvas] using [cursor]` - VERY HARD
+- `[deep select] [text object] on [canvas] using [cursor]` - VERY HARD
+- `[multiselect] [design objects] on [canvas] using [cursor]` - VERY HARD
+- `[deselect]` - EASY
 
 ## Creating Objects
-- `[create] [text object] at [new position] on [canvas]`
-- `[create] [design object] at [new position] on [canvas]`
-- `[drag] to [create] [design object] at [new position] on [canvas] using [cursor]`
+- `[create] [text object] at [new position] on [canvas]` - HARD
+- `[create] [design object] at [new position] on [canvas]` HARD
+- `[drag] to [create] [design object] at [new position] on [canvas] using [cursor]` - VERY HARD
 
 ## Spatial Positioning
-- `[drag] [selected] to [new position] using [cursor]`
-- `[drag] [selected] to [new position] using [cursor] and [alignment grids]`
-- `[move] [selected] to [new position] using [keyboard] and [alignment grids]`
+- `[drag] [selected] to [new position] using [cursor]` - VERY HARD
+- `[drag] [selected] to [new position] using [cursor] and [alignment grids]` - VERY HARD
+- `[move] [selected] to [new position] using [keyboard] and [alignment grids]` - MEDIUM
 
 ## Updating Text
-- `[update] [text object content]`
-- `[click] [gui icon]`
-- `[update] [gui input] to [value]`
+- `[update] [text object content]` - MEDIUM
+- `[click] [gui icon]` - EASY
+- `[update] [gui input] to [value]` - MEDIUM
 
 ## Updating Design Object Properties
-- `[update] [gui input] to [value]`
-- `[expand] [gui menu] + [click] [gui icon]`
-- `[scroll] [gui panel] + [expand] [gui menu] + [click gui icon]`
-- `[expand] [gui menu] + [scroll] [gui panel] + [click gui icon]`
+- `[update] [gui input] to [value]` - MEDIUM
+- `[expand] [gui menu] + [click] [gui icon]` - MEDIUM (due to multi-step increasing time)
+- `[scroll] [gui panel] + [expand] [gui menu] + [click gui icon]` - MEDIUM (scrolling with voice is hard)
+- `[expand] [gui menu] + [scroll] [gui panel] + [click gui icon]` - MEDIUM (scrolling with voice is hard)
 
 ## Information Revealing
-- `[expand] [gui menu]`
-- `[scroll] [gui panel]`
+- `[expand] [gui menu]` - EASY (single-click)
+- `[scroll] [gui panel]` - MEDIUM (scrolling is harder with voice)
 
 ## Tools & Autolayout
-- `[activate] [tool]`
-- `[create] [autolayout]`
-- `[update] [gui input] to [value]`
+- `[activate] [tool]` - EASY (single-click)
+- `[create] [autolayout]` - MEDIUM (atomic command but requires objects to be selected which is the hard part)
+- `[update] [gui input] to [value]` - MEDIUM
 
 ## Copy / Paste
-- `[duplicate] [selected]`
+- `[duplicate] [selected]` - MEDIUM (atomic commands but requires objects to be selected which is the hard part)
 
 ---
 
