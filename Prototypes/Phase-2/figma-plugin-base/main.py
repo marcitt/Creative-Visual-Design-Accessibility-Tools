@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from collections import deque
 
+# uvicorn main:app --reload
+
 app = FastAPI()
 
 import os
