@@ -1,30 +1,40 @@
 """
 Enables the creation of an overlay with AppKit and Quartz rather than an external python module
 This is better for native integration
-Reference: Claude Sonnet 4.6 
+Reference: Claude Sonnet 4.6
 """
 
-
 from AppKit import (
-    NSApplication, NSPanel, NSColor,
+    NSApplication,
+    NSPanel,
+    NSColor,
     NSWindowStyleMaskBorderless,
-    NSBackingStoreBuffered, NSTimer, NSScreen,
+    NSBackingStoreBuffered,
+    NSTimer,
+    NSScreen,
 )
 from Quartz import CGRectMake, kCGScreenSaverWindowLevel
+
 
 def start_overlay(x, y, width, height):
     rect = CGRectMake(x, y, width, height)
     window = NSPanel.alloc().initWithContentRect_styleMask_backing_defer_(
-        rect, NSWindowStyleMaskBorderless, NSBackingStoreBuffered, False,
+        rect,
+        NSWindowStyleMaskBorderless,
+        NSBackingStoreBuffered,
+        False,
     )
-    window.setLevel_(kCGScreenSaverWindowLevel)
+    window.setLevel_(kCGScreenSaverWindowLevel)  # sets window to float above everything
     window.setBackgroundColor_(NSColor.redColor())
     window.setOpaque_(True)
     window.setIgnoresMouseEvents_(True)
-    window.setHidesOnDeactivate_(False)
+    window.setHidesOnDeactivate_(
+        False
+    )  # keeps window visible even when another app is focused
     # window.orderFront_(None)
     window.orderFrontRegardless()
     return window
+
 
 if __name__ == "__main__":
     app = NSApplication.sharedApplication()
