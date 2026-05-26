@@ -3,9 +3,11 @@ Reference: Claude Sonnet 4.6
 """
 
 import json
+import sys
 import threading
 import subprocess
 import atexit
+import signal
 import requests
 import pyautogui
 from dotenv import load_dotenv
@@ -26,13 +28,22 @@ overlay_lock = threading.Lock()
 pyautogui.FAILSAFE = True
 
 
+# these are added to try to ensure safe termination of any subprocesses once the interpreter exits
+def cleanup_handler(signum, frame):
+    cleanup()
+    sys.exit(0)
+
+
+signal.signal(signal.SIGTERM, cleanup_handler)
+signal.signal(signal.SIGINT, cleanup_handler)
+
+
 def cleanup():
     with overlay_lock:
         if overlay_process:
             overlay_process.terminate()
 
 
-# enables safe termination of any subprocesses once the interpreter exits
 atexit.register(cleanup)
 
 

@@ -26,14 +26,16 @@ from AppKit import (
 )
 from Quartz import CGRectMake, kCGScreenSaverWindowLevel
 
-COLS = 4
-ROWS = 3
+from config import COLS, ROWS, CANVAS_TOP_LEFT_X, CANVAS_TOP_LEFT_Y, CANVAS_W, CANVAS_H
+
+# COLS = 15
+# ROWS = 10
 FIGMA_NODES_PATH = "figma_nodes.json"
 
-CANVAS_TOP_LEFT_X = 0
-CANVAS_TOP_LEFT_Y = 76
-CANVAS_W = 1470
-CANVAS_H = 956 - 76
+# CANVAS_TOP_LEFT_X = 0
+# CANVAS_TOP_LEFT_Y = 76
+# CANVAS_W = 1470
+# CANVAS_H = 956 - 76
 
 
 def load_figma_nodes():
@@ -80,7 +82,7 @@ class GridView(NSView):
         # grid cell numbers
         grid_attrs = NSDictionary.dictionaryWithObjects_forKeys_(
             [
-                NSColor.colorWithRed_green_blue_alpha_(1, 1, 1, 0.4),
+                NSColor.colorWithRed_green_blue_alpha_(1, 1, 1, 0.1),
                 NSFont.boldSystemFontOfSize_(14),
             ],
             [NSForegroundColorAttributeName, NSFontAttributeName],

@@ -10,22 +10,22 @@ app = FastAPI()
 
 # browsers have same-origin policy rule
 # a webpage can only make requests to the same domain it is served from
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],  # allow requests from any domain
-#     allow_methods=["*"],  # allow any HTTP method (GET, POST etc)
-#     allow_headers=["*"],  # allow any headers
-# )
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://www.figma.com",
-        "http://localhost:8000",
-    ],
-    allow_methods=["POST", "GET"],
-    allow_headers=["Content-Type"],
+    allow_origins=["*"],  # allow requests from any domain
+    allow_methods=["*"],  # allow any HTTP method (GET, POST etc)
+    allow_headers=["*"],  # allow any headers
 )
+
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=[
+#         "https://www.figma.com",
+#         "http://localhost:8000",
+#     ],
+#     allow_methods=["POST", "GET"],
+#     allow_headers=["Content-Type"],
+# )
 
 # list - removing from the front is slow
 # commands = []

@@ -1,6 +1,8 @@
 import json
 import os
 
+from config import COLS, ROWS, CANVAS_TOP_LEFT_X, CANVAS_TOP_LEFT_Y, CANVAS_W, CANVAS_H
+
 # def get_grid(viewport):
 #     COLS = 4
 #     ROWS = 3
@@ -30,12 +32,12 @@ import os
 
 
 def get_grid(viewport):
-    COLS = 4
-    ROWS = 3
-    CANVAS_TOP_LEFT_X = 0
-    CANVAS_TOP_LEFT_Y = 76
-    CANVAS_W = 1470
-    CANVAS_H = 956 - 76
+    # COLS = 4
+    # ROWS = 3
+    # CANVAS_TOP_LEFT_X = 0
+    # CANVAS_TOP_LEFT_Y = 76
+    # CANVAS_W = 1470
+    # CANVAS_H = 956 - 76
 
     zoom = viewport.get("zoom", 1)
     vp_x = viewport.get("x", 0)
@@ -82,6 +84,14 @@ def get_system_prompt():
         {figma_data}
 
         Always use exact layer names when referencing layers.
+        
+        Grid-based positioning:
+        - The canvas state includes a "grid" object with {COLS * ROWS} cells ({COLS} cols x {ROWS} rows)
+        - Cells run left-to-right, top-to-bottom: 1-{COLS} top row, ending at {COLS * ROWS} bottom-right
+        - Each cell has canvas coords (x, y) at its centre
+        - For Figma commands (move, create): use grid[cell]["canvas"]["x"] and grid[cell]["canvas"]["y"]
+        - For mouse commands: use grid[cell]["screen"]["x"] and grid[cell]["screen"]["y"]
+        - NEVER mix canvas and screen coordinates
     """
 
     instructions = """
