@@ -95,7 +95,26 @@ def get_system_prompt():
     """
 
     instructions = """
-        Output ONLY valid JSON. No explanations, comments, or markdown.
+        Think through the command step by step before outputting.
+
+        Use EXACTLY this format:
+        REASONING:
+        <step by step thinking - reference specific node positions, 
+        calculate coordinates, resolve any references>
+
+        COMMAND:
+        <valid JSON command>
+        
+        Example:
+        User: move Rectangle 2 below Rectangle 19
+        
+        REASONING:
+        Rectangle 19 is at x=340, y=200 with height=50.
+        To place Rectangle 2 directly below, its top edge should be at y=250.
+        Rectangle 2's current x is 100 — keeping it the same unless told otherwise.
+        
+        COMMAND:
+        {{"level": "figma", "type": "move", "query": "Rectangle 2", "x": 100, "y": 250}}
 
         Every command must have a "level" field:
         - "figma" — executed by the Figma plugin
