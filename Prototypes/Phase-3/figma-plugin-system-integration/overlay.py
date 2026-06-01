@@ -65,7 +65,7 @@ class GridView(NSView):
         cell_h = h / ROWS
 
         # grid lines
-        NSColor.colorWithRed_green_blue_alpha_(1, 1, 1, 0.8).setStroke()
+        NSColor.colorWithRed_green_blue_alpha_(0.5, 0.5, 0.5, 0.8).setStroke()
         path = NSBezierPath.bezierPath()
         path.setLineWidth_(1.0)
 
@@ -82,7 +82,7 @@ class GridView(NSView):
         # grid cell numbers
         grid_attrs = NSDictionary.dictionaryWithObjects_forKeys_(
             [
-                NSColor.colorWithRed_green_blue_alpha_(1, 1, 1, 0.1),
+                NSColor.colorWithRed_green_blue_alpha_(0.5, 0.5, 0.5, 0.8),
                 NSFont.boldSystemFontOfSize_(14),
             ],
             [NSForegroundColorAttributeName, NSFontAttributeName],
@@ -127,7 +127,7 @@ class GridView(NSView):
                 label_text = f"{node['name']}  ({node['id']})"
                 label_w = len(label_text) * 6
 
-                NSColor.colorWithRed_green_blue_alpha_(0, 0, 0, 0.6).setFill()
+                NSColor.colorWithRed_green_blue_alpha_(0.5, 0.5, 0.5, 0.8).setFill()
                 NSBezierPath.fillRect_(CGRectMake(screen_x, screen_y, label_w, 17))
 
                 label = NSString.stringWithString_(label_text)
@@ -173,7 +173,7 @@ if __name__ == "__main__":
         False,
     )
     window.setLevel_(kCGScreenSaverWindowLevel)
-    window.setBackgroundColor_(NSColor.colorWithRed_green_blue_alpha_(0, 0, 0, 0.4))
+    window.setBackgroundColor_(NSColor.colorWithRed_green_blue_alpha_(0, 0, 0, 0))
     window.setOpaque_(False)
     window.setIgnoresMouseEvents_(True)
     window.setHidesOnDeactivate_(False)
