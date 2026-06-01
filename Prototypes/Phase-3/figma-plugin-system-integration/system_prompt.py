@@ -31,14 +31,43 @@ from config import COLS, ROWS, CANVAS_TOP_LEFT_X, CANVAS_TOP_LEFT_Y, CANVAS_W, C
 #     return grid
 
 
-def get_grid(viewport):
-    # COLS = 4
-    # ROWS = 3
-    # CANVAS_TOP_LEFT_X = 0
-    # CANVAS_TOP_LEFT_Y = 76
-    # CANVAS_W = 1470
-    # CANVAS_H = 956 - 76
+# def get_grid(viewport):
+#     # COLS = 4
+#     # ROWS = 3
+#     # CANVAS_TOP_LEFT_X = 0
+#     # CANVAS_TOP_LEFT_Y = 76
+#     # CANVAS_W = 1470
+#     # CANVAS_H = 956 - 76
 
+#     zoom = viewport.get("zoom", 1)
+#     vp_x = viewport.get("x", 0)
+#     vp_y = viewport.get("y", 0)
+
+#     cell_w = CANVAS_W / COLS
+#     cell_h = CANVAS_H / ROWS
+
+#     grid = {}
+#     for row in range(ROWS):
+#         for col in range(COLS):
+#             cell = row * COLS + col + 1
+
+#             # centre of cell in screen coordinates
+#             screen_x = CANVAS_TOP_LEFT_X + (col + 0.5) * cell_w
+#             screen_y = CANVAS_TOP_LEFT_Y + (row + 0.5) * cell_h
+
+#             # convert to canvas coordinates
+#             canvas_x = vp_x + screen_x / zoom
+#             canvas_y = vp_y + screen_y / zoom
+
+#             grid[str(cell)] = {
+#                 "canvas": {"x": round(canvas_x, 1), "y": round(canvas_y, 1)},
+#                 "screen": {"x": round(screen_x, 1), "y": round(screen_y, 1)},
+#             }
+
+#     return grid
+
+
+def get_grid(viewport):
     zoom = viewport.get("zoom", 1)
     vp_x = viewport.get("x", 0)
     vp_y = viewport.get("y", 0)
@@ -51,17 +80,51 @@ def get_grid(viewport):
         for col in range(COLS):
             cell = row * COLS + col + 1
 
-            # centre of cell in screen coordinates
-            screen_x = CANVAS_TOP_LEFT_X + (col + 0.5) * cell_w
-            screen_y = CANVAS_TOP_LEFT_Y + (row + 0.5) * cell_h
+            # cell boundaries in screen space
+            screen_left = CANVAS_TOP_LEFT_X + col * cell_w
+            screen_top = CANVAS_TOP_LEFT_Y + row * cell_h
+            screen_right = screen_left + cell_w
+            screen_bottom = screen_top + cell_h
+            screen_cx = screen_left + cell_w / 2
+            screen_cy = screen_top + cell_h / 2
 
-            # convert to canvas coordinates
-            canvas_x = vp_x + screen_x / zoom
-            canvas_y = vp_y + screen_y / zoom
+            # convert all to canvas coordinates
+            # def to_canvas_x(sx):
+            #     return round(vp_x + sx / zoom, 1)
+
+            # def to_canvas_y(sy):
+            #     return round(vp_y + sy / zoom, 1)
+
+            def to_canvas_x(sx):
+                return round(vp_x + (sx - CANVAS_TOP_LEFT_X) / zoom, 1)
+
+            def to_canvas_y(sy):
+                return round(vp_y + (sy - CANVAS_TOP_LEFT_Y) / zoom, 1)
+
+            canvas_cell_w = round(cell_w / zoom, 1)
+            canvas_cell_h = round(cell_h / zoom, 1)
 
             grid[str(cell)] = {
-                "canvas": {"x": round(canvas_x, 1), "y": round(canvas_y, 1)},
-                "screen": {"x": round(screen_x, 1), "y": round(screen_y, 1)},
+                "centre": {"x": to_canvas_x(screen_cx), "y": to_canvas_y(screen_cy)},
+                "corners": {
+                    "top_left": {
+                        "x": to_canvas_x(screen_left),
+                        "y": to_canvas_y(screen_top),
+                    },
+                    "top_right": {
+                        "x": to_canvas_x(screen_right),
+                        "y": to_canvas_y(screen_top),
+                    },
+                    "bottom_left": {
+                        "x": to_canvas_x(screen_left),
+                        "y": to_canvas_y(screen_bottom),
+                    },
+                    "bottom_right": {
+                        "x": to_canvas_x(screen_right),
+                        "y": to_canvas_y(screen_bottom),
+                    },
+                },
+                "dimensions": {"width": canvas_cell_w, "height": canvas_cell_h},
             }
 
     return grid
@@ -71,11 +134,12 @@ def get_system_prompt():
     with open("figma_nodes.json", "r") as f:
         figma_data = json.load(f)
 
-    figma_data["grid"] = get_grid(figma_data.get("viewport", {}))
+    grid_data = get_grid(figma_data.get("viewport", {}))
 
-    filepath = os.path.join(os.path.dirname(__file__), "figma_nodes.json")
-    with open(filepath, "w") as f:
-        json.dump(figma_data, f, indent=2)
+    # write grid to its own file
+    grid_filepath = os.path.join(os.path.dirname(__file__), "grid.json")
+    with open(grid_filepath, "w") as f:
+        json.dump(grid_data, f, indent=2)
 
     context = f"""
         You convert natural language instructions into JSON commands.
@@ -84,14 +148,16 @@ def get_system_prompt():
         {figma_data}
 
         Always use exact layer names when referencing layers.
+        IMPORTANT: x, y in ALL Figma commands is the TOP-LEFT corner of the object, never its centre
+    
+        Grid ({COLS} cols x {ROWS} rows, {COLS * ROWS} cells total):
+        - Cells numbered left-to-right, top-to-bottom: 1 is top-left, {COLS * ROWS} is bottom-right
+        - All coordinates are Figma canvas coordinates
+        - "centre": the centre point of the cell 
+        - "corners": all four corners of the cell
+        - "dimensions": width and height of each cell in canvas units
+        {grid_data}
         
-        Grid-based positioning:
-        - The canvas state includes a "grid" object with {COLS * ROWS} cells ({COLS} cols x {ROWS} rows)
-        - Cells run left-to-right, top-to-bottom: 1-{COLS} top row, ending at {COLS * ROWS} bottom-right
-        - Each cell has canvas coords (x, y) at its centre
-        - For Figma commands (move, create): use grid[cell]["canvas"]["x"] and grid[cell]["canvas"]["y"]
-        - For mouse commands: use grid[cell]["screen"]["x"] and grid[cell]["screen"]["y"]
-        - NEVER mix canvas and screen coordinates
     """
 
     instructions = """
