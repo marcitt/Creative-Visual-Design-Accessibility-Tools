@@ -1,7 +1,5 @@
 Title,video,sample,start,end,initial_code,action,difficulty_with_existing_speech_tools,tag_primary,tag_secondary,how_primary,how_secondary,location,intent,adjusted_start,adjusted_end,duration,true_duration,true_duration_unlabelled,estimated_duration,insights_and_notes
-"
-ASMR UI Designing in FIGMA - STRIPE - No Talking | Silent
-ASMR UI Designing in FIGMA - STRIPE - No Talking | Silent",https://www.youtube.com/watch?v=OLb7Rqo1KVQ,2_1,0.1,0.13,zoom,[zoom],,navigation,navigate,gesture,,canvas,wayfinding,0.0,3.0,3.0,<4 seconds,4.0,3.5,
+ASMR UI Designing in FIGMA - STRIPE - No Talking | Silent,https://www.youtube.com/watch?v=OLb7Rqo1KVQ,2_1,0.1,0.13,zoom,[zoom],,navigation,navigate,gesture,,canvas,wayfinding,0.0,3.0,3.0,<4 seconds,4.0,3.5,
 ,,,0.13,0.14,select rectangle dropdown menu with cursor,[gui interaction],,gui interaction,gui interaction,cursor,,gui,activate rectangle tool,3.0,4.000000000000002,1.0000000000000018,<2 seconds,2.0000000000000018,1.5000000000000018,
 ,,,0.14,0.15,click place image ,[gui interaction],,gui interaction,gui interaction,cursor,,gui,place image,4.000000000000002,5.0,0.9999999999999982,<2 seconds,1.9999999999999982,1.4999999999999982,
 ,,,0.15,0.2,select image to import,[gui interaction],,gui interaction,gui interaction,cursor,,gui,choose image to import,5.0,10.0,5.0,<6 seconds,6.0,5.5,
