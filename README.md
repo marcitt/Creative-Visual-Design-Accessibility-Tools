@@ -5,9 +5,7 @@ This is the go to location for everything related to digital prototyping for my 
 
 **Goal:** Improve the accessibility of existing 2D Vector-Based design software (e.g. Figma, Adobe Illustrator, Inkscape) using voice (for users with mobility disabilities).
 
-**Wider Goal:** Inform future research for spatial voice interaction as a new modality.
-
-**Foucsed Specific Goal:** Build a plugin that integrates with Figma to enable voice interaction using ASR for transcription and LLMs for command management.
+**Focused Specific Goal:** Build a plugin that integrates with Figma to enable voice interaction using ASR for transcription and LLMs for command management.
 
 ## Repo Structure
 
