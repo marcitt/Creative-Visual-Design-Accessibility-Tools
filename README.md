@@ -12,7 +12,7 @@ This is the go to location for everything related to digital prototyping for my 
 ## Repo Structure
 
 ### Prototype
-[Accessibility Experiments](https://github.com/marcitt/Creative-Visual-Design-Accessibility-Tools/tree/main/Prototype) 
+[Main plugin](https://github.com/marcitt/Creative-Visual-Design-Accessibility-Tools/tree/main/Prototype) 
 
 Most up to date prototype ^
 
