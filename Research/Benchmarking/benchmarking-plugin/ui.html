@@ -1,0 +1,44 @@
+<style>
+  body { font-family: Inter, sans-serif; font-size: 11px; margin: 8px; }
+  .outer { display: flex; gap: 8px; align-items: stretch; }
+  #instruction { flex: 1; padding: 8px 10px; background: #f5f5f5; border-radius: 4px; line-height: 1.5; color: #333; font-size: 11px; }
+  .controls { display: flex; flex-direction: column; gap: 5px; justify-content: center; }
+  #status { font-size: 11px; color: #555; text-align: right; white-space: nowrap; }
+  .row { display: flex; gap: 4px; }
+  button { padding: 5px 0; width: 64px; border: none; border-radius: 4px; cursor: pointer; background: #18a0fb; color: white; font-size: 11px; white-space: nowrap; }
+  button:disabled { opacity: 0.35; cursor: default; }
+  #snap { background: #eee; color: #333; }
+  input { width: 40px; padding: 5px 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; text-align: center; box-sizing: border-box; }
+  #go { width: 36px; }
+</style>
+<div class="outer">
+  <div id="instruction">—</div>
+  <div class="controls">
+    <span id="status">—</span>
+    <div class="row">
+      <button id="prev" onclick="parent.postMessage({pluginMessage:'prev'},'*')">←</button>
+      <button id="next" onclick="parent.postMessage({pluginMessage:'next'},'*')">Next →</button>
+    </div>
+    <div class="row">
+      <button id="snap" onclick="parent.postMessage({pluginMessage:'snap'},'*')">Re-snap</button>
+      <input id="goto" type="number" min="1" placeholder="#" />
+      <button id="go" onclick="go()">Go</button>
+    </div>
+  </div>
+</div>
+<script>
+  function go() {
+    var val = document.getElementById("goto").value;
+    if (val) parent.postMessage({ pluginMessage: { type: "goto", value: val } }, "*");
+  }
+  window.onmessage = function (e) {
+    var msg = e.data.pluginMessage;
+    var parts = msg.status.split(" / ");
+    var i = parseInt(parts[0]) - 1;
+    var total = parseInt(parts[1]);
+    document.getElementById("status").textContent = "Task " + (i + 1) + " of " + total;
+    document.getElementById("instruction").textContent = msg.instruction;
+    document.getElementById("prev").disabled = i === 0;
+    document.getElementById("next").disabled = i === total - 1;
+  };
+</script>
