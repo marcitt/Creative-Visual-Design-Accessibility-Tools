@@ -89,6 +89,14 @@ Assume total footage ~ 767.76-77 = ~691 minutes = ~ 11.5 hours of footage
 So around 10 minutes of footage was sampled from 11.5 hours of videos
 There were a total of ~400 coded interaction (397 total) and 61 unique actions - saturation of actions began after around 330 actions. Saturation of tags began earlier.
 
+Selection = 92/397 =
+Navigation = 83/397
+positioning = 48/397
+ui = 47/397
+wayfinding = 24/397
+resizing = 21/397
+creating = 13/397
+grouping =  12/397
 
 Findings are mostly included in the notes below: 
 
