@@ -1,0 +1,15 @@
+task,input_mode,label,duration,modifier
+1,standard_input,task_1a,0.982,
+1,voice_control,task_1b,12.477,
+1,plugin,task_1c,4.323,
+2,standard_input,task_2a,2.476,
+2,voice_control,task_2b,61.679,
+2,plugin,task_2c,3.551,
+3,standard_input,task_3a,3.457,
+3,voice_control,task_3b,29.541,
+3,plugin,task_3c,4.723,
+4,standard_input,task_4a,4.012,
+4,voice_control,task_4b,67.247,prompted
+5,standard_input,task_5a,4.372,
+5,voice_control,task_5b,52.333,
+5,plugin,task_5c,100.815,
