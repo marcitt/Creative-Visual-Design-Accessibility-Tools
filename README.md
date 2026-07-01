@@ -2,7 +2,7 @@
 This is the go to location for everything related to digital prototyping for my master's project.
 
 # Main Prototype:
-[Main plugin](https://github.com/marcitt/figma-voice
+https://github.com/marcitt/figma-voice
 Moved to a separate repo to more easily facilitate distribution
 
 ## Project Overview
